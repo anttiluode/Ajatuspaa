@@ -4,7 +4,6 @@ import hashlib
 import json
 import math
 import random
-import re
 import time
 from collections import Counter
 from pathlib import Path
@@ -41,12 +40,6 @@ def mean(xs):
     return sum(xs) / len(xs) if xs else None
 
 
-def rms_match(x, ref):
-    # Bound carrier norm to the scale of genuine embeddings.
-    return x * (ref.float().square().mean().sqrt()
-                / x.float().square().mean().sqrt().clamp_min(1e-8))
-
-
 class World:
     def __init__(self, model, tokenizer, calibration=192, batch=32):
         self.model = model.eval().requires_grad_(False)
@@ -71,7 +64,8 @@ class World:
     @torch.inference_mode()
     def calibrate(self, n, batch):
         rng = random.Random(410)
-        allowed = [i for i in range(self.vocab) if i not in set(self.banned)]
+        banned = set(self.banned)
+        allowed = [i for i in range(self.vocab) if i not in banned]
         ids = rng.sample(allowed, min(n, len(allowed)))
         samples = {l: [] for l in self.layers}
         for start in range(0, len(ids), batch):
@@ -266,7 +260,7 @@ def run(world, arm, seed, trial, steps, context_len, verbose=False):
     return rows, stats, unit(torch.stack(finals[steps//2:]).mean(0)), torch.stack(inputs)
 
 
-def report(records):
+def report(records, full_protocol=False):
     result = {}
     for arm in ARMS:
         group = [r for r in records if r[0]["arm"] == arm]
@@ -301,7 +295,23 @@ def report(records):
                 mid = len(d)//2
                 pairs.append(dict(seed=seed, trial=trial, control=control,
                     pre_max=float(d[:mid].max()), post_mean=float(d[mid:].mean())))
-    return dict(arms=result, memory_pairs=pairs)
+    complete = full_protocol and all((a,s,t) in lookup for a in ARMS for s in DEFAULT_SEEDS for t in range(3))
+    gate = dict(complete_default_matrix=complete, status="incomplete")
+    if complete:
+        rr = result["residue"]
+        controls = [result[a]["recurrence"] for a in ("fixed","random","periodic")]
+        specificity = rr["seed_specificity"]
+        fixed_specificity = result["fixed"]["seed_specificity"]
+        reset_pairs = [p for p in pairs if p["control"]=="reset"]
+        gate.update(status="evaluated_mechanical_diagnostics_only",
+            gate0_reset_pre_match=all(p["pre_max"] < 1e-5 for p in reset_pairs),
+            gate1_recurrence_gain=min(controls)-rr["recurrence"],
+            gate1_specificity_delta=specificity-fixed_specificity,
+            gate1_pass=(min(controls)-rr["recurrence"] >= .02 and
+                        specificity-fixed_specificity >= -.02),
+            gate2_reset_post_divergence=mean([p["post_mean"] for p in reset_pairs]),
+            gate2_shuffled_post_divergence=mean([p["post_mean"] for p in pairs if p["control"]=="shuffled"]))
+    return dict(arms=result, memory_pairs=pairs, gates=gate)
 
 
 class TinyTokenizer:
@@ -390,7 +400,7 @@ def main():
                     f.flush()
                     records.append((s,final,inputs))
                     print(seed,trial,arm,"recurrence",s["recurrence"],"repeat",round(s["repeat_fraction"],3),flush=True)
-                    (a.out/"summary.json").write_text(json.dumps(report(records),indent=2,allow_nan=False),encoding="utf-8")
+                    (a.out/"summary.json").write_text(json.dumps(report(records, a.steps==64 and a.context==8 and a.trials==3 and set(a.seeds)==set(DEFAULT_SEEDS) and set(a.arms)==set(ARMS)),indent=2,allow_nan=False),encoding="utf-8")
     print("Wrote",a.out,flush=True)
 
 
