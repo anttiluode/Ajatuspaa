@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ajatuspää — trace viewer</title>
+<style>
+:root{color-scheme:dark;font:15px system-ui;background:#10161c;color:#e6edf3}body{max-width:1100px;margin:30px auto;padding:0 18px}h1{font-weight:500;letter-spacing:-.04em;margin-bottom:4px}p{color:#a7bac8;line-height:1.5}section{background:#17212a;border:1px solid #35434e;border-radius:12px;padding:16px;margin:16px 0}input,select{font:inherit;color:inherit;background:#202e39;border:1px solid #51616d;padding:8px;border-radius:5px;max-width:100%}canvas{width:100%;height:250px;display:block}#words{display:flex;flex-wrap:wrap;gap:6px}#words span{display:inline-block;border:1px solid #425661;padding:6px 9px;border-radius:6px;white-space:pre-wrap;cursor:pointer}#words span:hover,#words .selected{border-color:#7ce2ce;background:#254843}#detail{white-space:pre-wrap;font:13px ui-monospace,monospace;color:#d1e0e8}label{display:inline-block;margin-right:12px}#status{color:#ffd090}small{color:#a7bac8}
+</style>
+<h1>Ajatuspää / inward head</h1>
+<p>Offline viewer of measured traces. Load <code>traces.jsonl</code> from your run. Text snapshots are diagnostics, not evidence of thought.</p>
+<section><input id="file" type="file" accept=".jsonl,.json"><p id="status">No trace loaded.</p><label>Run <select id="run"></select></label><label>Tick <input id="tick" type="range" min="0" max="0" value="0"></label><strong id="number"></strong></section>
+<section><h2>Internal activity</h2><canvas id="chart"></canvas><small><span style="color:#7ce2ce">● Step change</span>　<span style="color:#f4b76d">● Recurrence</span>　<span style="color:#a5a0ff">● Aperture rank (full=maximum)</span>　<span style="color:#79b8ff">● Layer address</span></small></section>
+<section><h2>Snapshot sequence</h2><div id="words"></div></section>
+<section><h2>Selected observation</h2><pre id="detail"></pre></section>
+<script>
+const $=id=>document.getElementById(id);
+let data=[], active=null;
+$('file').addEventListener('change',async()=>{
+ try{
+ const text=await $('file').files[0].text(), entries=[],errors=[];
+ for(const line of text.split(/\r?\n/)){if(!line.trim())continue;try{const r=JSON.parse(line);if(r.rows&&r.stats)entries.push(r);else errors.push(r.error||'Unknown record')}catch{errors.push('Invalid or incomplete line')}}
+ data=entries;$('run').replaceChildren();
+ data.forEach((r,i)=>{const o=document.createElement('option');o.value=i;o.textContent=r.stats.seed+' / '+r.stats.arm+' / trial '+r.stats.trial;$('run').append(o)});
+ $('status').textContent=data.length+' complete runs loaded; '+errors.length+' error/incomplete records. '+errors.join(' ');
+ select();
+ }catch(e){$('status').textContent=String(e)}
+});
+$('run').onchange=select;$('tick').oninput=render;
+function select(){active=data[Number($('run').value)]||null;$('tick').max=active?active.rows.length-1:0;$('tick').value=0;render()}
+function render(){const c=$('chart'),dpr=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=w*dpr;c.height=h*dpr;const g=c.getContext('2d');g.scale(dpr,dpr);$('words').replaceChildren();if(!active){$('detail').textContent='';$('number').textContent='';return}
+ const rows=active.rows,t=Number($('tick').value),x=i=>35+i*(w-50)/Math.max(1,rows.length-1),y=v=>h-25-v*(h-40),maxRank=Math.max(128,...rows.map(r=>r.rank)),maxLayer=Math.max(1,...rows.map(r=>r.layer));
+ g.font='11px system-ui';g.strokeStyle='#35434e';g.fillStyle='#a7bac8';
+ for(const v of [0,.25,.5,.75,1]){g.beginPath();g.moveTo(35,y(v));g.lineTo(w-15,y(v));g.stroke();g.fillText(v.toFixed(2),2,y(v)+4)}
+ function line(fn,color){g.strokeStyle=color;g.lineWidth=1.7;g.beginPath();let started=false;rows.forEach((r,i)=>{let v=fn(r);if(v==null||!Number.isFinite(v)){started=false;return}v=Math.max(0,Math.min(1,v));if(!started){g.moveTo(x(i),y(v));started=true}else g.lineTo(x(i),y(v))});g.stroke()}
+ line(r=>r.step_change/2,'#7ce2ce');line(r=>r.recurrence,'#f4b76d');line(r=>r.rank===0?1:r.rank/maxRank,'#a5a0ff');line(r=>r.layer/maxLayer,'#79b8ff');
+ g.strokeStyle='#fff';g.setLineDash([3,4]);g.beginPath();g.moveTo(x(t),10);g.lineTo(x(t),h-20);g.stroke();g.setLineDash([]);
+ rows.forEach((r,i)=>{const s=document.createElement('span');s.textContent=r.snapshot;s.title='tick '+i+' layer '+r.layer+' rank '+r.rank;s.className=i===t?'selected':'';s.onclick=()=>{$('tick').value=i;render()};$('words').append(s)});
+ $('number').textContent=t+' / '+(rows.length-1);const r=rows[t];
+ $('detail').textContent=JSON.stringify({run:active.stats,observation:r},null,2)
+}
+addEventListener('resize',render);
+</script></html>
