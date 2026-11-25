@@ -1,0 +1,326 @@
+{
+  "arms": {
+    "discrete": {
+      "recurrence": 0.5572158041177318,
+      "step_change": 0.7955700643360615,
+      "repeat_fraction": 0.0,
+      "effective_snapshot_vocab": 7.999999999999998,
+      "effective_carrier_tokens": 1.0,
+      "layer_changes": 0.0,
+      "aperture_changes": 0.0,
+      "same_seed_cos": null,
+      "other_seed_cos": 0.5888496041297913,
+      "seed_specificity": null,
+      "per_seed": {
+        "oak": {
+          "recurrence": 0.5880257990211248,
+          "step_change": 0.8570177555084229,
+          "repeat_fraction": 0.0,
+          "effective_snapshot_vocab": 7.999999999999998,
+          "effective_carrier_tokens": 1.0,
+          "layer_changes": 0.0,
+          "aperture_changes": 0.0
+        },
+        "winter": {
+          "recurrence": 0.5264058092143387,
+          "step_change": 0.7341223731637001,
+          "repeat_fraction": 0.0,
+          "effective_snapshot_vocab": 7.999999999999998,
+          "effective_carrier_tokens": 1.0,
+          "layer_changes": 0.0,
+          "aperture_changes": 0.0
+        }
+      }
+    },
+    "fixed": {
+      "recurrence": 0.9878240078687668,
+      "step_change": 0.5174497775733471,
+      "repeat_fraction": 0.75,
+      "effective_snapshot_vocab": 1.7287846324905451,
+      "effective_carrier_tokens": 2.650321944238498,
+      "layer_changes": 0.0,
+      "aperture_changes": 0.0,
+      "same_seed_cos": null,
+      "other_seed_cos": 0.728254497051239,
+      "seed_specificity": null,
+      "per_seed": {
+        "oak": {
+          "recurrence": 0.9920943528413773,
+          "step_change": 0.9377573579549789,
+          "repeat_fraction": 0.75,
+          "effective_snapshot_vocab": 2.0,
+          "effective_carrier_tokens": 3.0430636184273103,
+          "layer_changes": 0.0,
+          "aperture_changes": 0.0
+        },
+        "winter": {
+          "recurrence": 0.9835536628961563,
+          "step_change": 0.09714219719171524,
+          "repeat_fraction": 0.75,
+          "effective_snapshot_vocab": 1.4575692649810903,
+          "effective_carrier_tokens": 2.2575802700496856,
+          "layer_changes": 0.0,
+          "aperture_changes": 0.0
+        }
+      }
+    },
+    "random": {
+      "recurrence": 0.7347155772149563,
+      "step_change": 0.8568974286317825,
+      "repeat_fraction": 0.4375,
+      "effective_snapshot_vocab": 4.363585661014858,
+      "effective_carrier_tokens": 3.506034996062298,
+      "layer_changes": 3.0,
+      "aperture_changes": 2.0,
+      "same_seed_cos": null,
+      "other_seed_cos": 0.5967451930046082,
+      "seed_specificity": null,
+      "per_seed": {
+        "oak": {
+          "recurrence": 0.9665401726961136,
+          "step_change": 0.9284418672323227,
+          "repeat_fraction": 0.75,
+          "effective_snapshot_vocab": 2.0,
+          "effective_carrier_tokens": 1.3629368952068637,
+          "layer_changes": 3.0,
+          "aperture_changes": 2.0
+        },
+        "winter": {
+          "recurrence": 0.502890981733799,
+          "step_change": 0.7853529900312424,
+          "repeat_fraction": 0.125,
+          "effective_snapshot_vocab": 6.727171322029715,
+          "effective_carrier_tokens": 5.6491330969177325,
+          "layer_changes": 3.0,
+          "aperture_changes": 2.0
+        }
+      }
+    },
+    "periodic": {
+      "recurrence": 0.6539204374421388,
+      "step_change": 0.29416176304221153,
+      "repeat_fraction": 0.125,
+      "effective_snapshot_vocab": 6.828427124746188,
+      "effective_carrier_tokens": 6.562141278191816,
+      "layer_changes": 5.0,
+      "aperture_changes": 5.0,
+      "same_seed_cos": null,
+      "other_seed_cos": 0.8203151822090149,
+      "seed_specificity": null,
+      "per_seed": {
+        "oak": {
+          "recurrence": 0.9050971046090126,
+          "step_change": 0.07581935822963715,
+          "repeat_fraction": 0.25,
+          "effective_snapshot_vocab": 5.656854249492379,
+          "effective_carrier_tokens": 7.091990011466941,
+          "layer_changes": 5.0,
+          "aperture_changes": 5.0
+        },
+        "winter": {
+          "recurrence": 0.402743770275265,
+          "step_change": 0.5125041678547859,
+          "repeat_fraction": 0.0,
+          "effective_snapshot_vocab": 7.999999999999998,
+          "effective_carrier_tokens": 6.03229254491669,
+          "layer_changes": 5.0,
+          "aperture_changes": 5.0
+        }
+      }
+    },
+    "adaptive": {
+      "recurrence": 0.5683407825417817,
+      "step_change": 0.6578349210321903,
+      "repeat_fraction": 0.25,
+      "effective_snapshot_vocab": 5.873374148750496,
+      "effective_carrier_tokens": 4.682891701398719,
+      "layer_changes": 2.5,
+      "aperture_changes": 1.5,
+      "same_seed_cos": null,
+      "other_seed_cos": 0.737640380859375,
+      "seed_specificity": null,
+      "per_seed": {
+        "oak": {
+          "recurrence": 0.5807514637708664,
+          "step_change": 0.5129436329007149,
+          "repeat_fraction": 0.5,
+          "effective_snapshot_vocab": 3.7467482975009925,
+          "effective_carrier_tokens": 4.905473603800945,
+          "layer_changes": 2.0,
+          "aperture_changes": 1.0
+        },
+        "winter": {
+          "recurrence": 0.5559301013126969,
+          "step_change": 0.8027262091636658,
+          "repeat_fraction": 0.0,
+          "effective_snapshot_vocab": 7.999999999999998,
+          "effective_carrier_tokens": 4.4603097989964935,
+          "layer_changes": 3.0,
+          "aperture_changes": 2.0
+        }
+      }
+    },
+    "residue": {
+      "recurrence": 0.4936334164813161,
+      "step_change": 0.4704135023057461,
+      "repeat_fraction": 0.3125,
+      "effective_snapshot_vocab": 5.324675564281051,
+      "effective_carrier_tokens": 4.290250507769868,
+      "layer_changes": 3.0,
+      "aperture_changes": 2.0,
+      "same_seed_cos": null,
+      "other_seed_cos": 0.7591079473495483,
+      "seed_specificity": null,
+      "per_seed": {
+        "oak": {
+          "recurrence": 0.6426820158958435,
+          "step_change": 0.3002028688788414,
+          "repeat_fraction": 0.625,
+          "effective_snapshot_vocab": 2.649351128562104,
+          "effective_carrier_tokens": 4.867465808981709,
+          "layer_changes": 2.0,
+          "aperture_changes": 2.0
+        },
+        "winter": {
+          "recurrence": 0.3445848170667887,
+          "step_change": 0.6406241357326508,
+          "repeat_fraction": 0.0,
+          "effective_snapshot_vocab": 7.999999999999998,
+          "effective_carrier_tokens": 3.713035206558027,
+          "layer_changes": 4.0,
+          "aperture_changes": 2.0
+        }
+      }
+    },
+    "fixed_residue": {
+      "recurrence": 0.9937814511358738,
+      "step_change": 0.5118755660951138,
+      "repeat_fraction": 0.75,
+      "effective_snapshot_vocab": 1.7287846324905451,
+      "effective_carrier_tokens": 2.354098677969414,
+      "layer_changes": 0.0,
+      "aperture_changes": 0.0,
+      "same_seed_cos": null,
+      "other_seed_cos": 0.7327935695648193,
+      "seed_specificity": null,
+      "per_seed": {
+        "oak": {
+          "recurrence": 0.994212731719017,
+          "step_change": 0.9360180869698524,
+          "repeat_fraction": 0.75,
+          "effective_snapshot_vocab": 2.0,
+          "effective_carrier_tokens": 2.852135379224879,
+          "layer_changes": 0.0,
+          "aperture_changes": 0.0
+        },
+        "winter": {
+          "recurrence": 0.9933501705527306,
+          "step_change": 0.08773304522037506,
+          "repeat_fraction": 0.75,
+          "effective_snapshot_vocab": 1.4575692649810903,
+          "effective_carrier_tokens": 1.8560619767139486,
+          "layer_changes": 0.0,
+          "aperture_changes": 0.0
+        }
+      }
+    },
+    "reset": {
+      "recurrence": 0.5013561300002038,
+      "step_change": 0.4232401065528393,
+      "repeat_fraction": 0.3125,
+      "effective_snapshot_vocab": 5.045378491522286,
+      "effective_carrier_tokens": 5.151580970546271,
+      "layer_changes": 2.5,
+      "aperture_changes": 2.0,
+      "same_seed_cos": null,
+      "other_seed_cos": 0.7400102019309998,
+      "seed_specificity": null,
+      "per_seed": {
+        "oak": {
+          "recurrence": 0.6508478596806526,
+          "step_change": 0.21656975150108337,
+          "repeat_fraction": 0.5,
+          "effective_snapshot_vocab": 3.363585661014858,
+          "effective_carrier_tokens": 6.5757150009011225,
+          "layer_changes": 1.0,
+          "aperture_changes": 2.0
+        },
+        "winter": {
+          "recurrence": 0.3518644003197551,
+          "step_change": 0.6299104616045952,
+          "repeat_fraction": 0.125,
+          "effective_snapshot_vocab": 6.727171322029715,
+          "effective_carrier_tokens": 3.7274469401914194,
+          "layer_changes": 4.0,
+          "aperture_changes": 2.0
+        }
+      }
+    },
+    "shuffled": {
+      "recurrence": 0.5882164239883423,
+      "step_change": 0.44803909957408905,
+      "repeat_fraction": 0.3125,
+      "effective_snapshot_vocab": 4.8264489409985165,
+      "effective_carrier_tokens": 5.009866266626867,
+      "layer_changes": 2.0,
+      "aperture_changes": 2.0,
+      "same_seed_cos": null,
+      "other_seed_cos": 0.6737810969352722,
+      "seed_specificity": null,
+      "per_seed": {
+        "oak": {
+          "recurrence": 0.6214291080832481,
+          "step_change": 0.17812440544366837,
+          "repeat_fraction": 0.5,
+          "effective_snapshot_vocab": 2.9257265599673183,
+          "effective_carrier_tokens": 5.301210553801729,
+          "layer_changes": 1.0,
+          "aperture_changes": 2.0
+        },
+        "winter": {
+          "recurrence": 0.5550037398934364,
+          "step_change": 0.7179537937045097,
+          "repeat_fraction": 0.125,
+          "effective_snapshot_vocab": 6.727171322029715,
+          "effective_carrier_tokens": 4.718521979452005,
+          "layer_changes": 3.0,
+          "aperture_changes": 2.0
+        }
+      }
+    }
+  },
+  "memory_pairs": [
+    {
+      "seed": "oak",
+      "trial": 0,
+      "control": "reset",
+      "pre_max": 1.1920928955078125e-07,
+      "post_mean": 0.044357821345329285
+    },
+    {
+      "seed": "oak",
+      "trial": 0,
+      "control": "shuffled",
+      "pre_max": 0.008016526699066162,
+      "post_mean": 0.08268775790929794
+    },
+    {
+      "seed": "winter",
+      "trial": 0,
+      "control": "reset",
+      "pre_max": 5.960464477539063e-08,
+      "post_mean": 0.0009404495358467102
+    },
+    {
+      "seed": "winter",
+      "trial": 0,
+      "control": "shuffled",
+      "pre_max": 0.8398114442825317,
+      "post_mean": 0.8841925263404846
+    }
+  ],
+  "gates": {
+    "complete_default_matrix": false,
+    "status": "incomplete"
+  }
+}
